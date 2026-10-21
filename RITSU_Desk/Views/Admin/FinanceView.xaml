@@ -1,0 +1,143 @@
+<UserControl x:Class="RITSU_Desk.Views.Admin.FinanceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:RITSU_Desk.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Focusable="False">
+        <StackPanel>
+            <Grid Margin="0,0,14,14">
+                <TextBlock Text="Semua angka dihitung server dengan query yang sama dengan halaman keuangan di RITSU web."
+                           Style="{StaticResource Text.Caption}" VerticalAlignment="Center" />
+                <Button Style="{StaticResource Button.Secondary}" Command="{Binding ExportCommand}" HorizontalAlignment="Right"
+                        ToolTip="Ekspor ringkasan, tren bulanan, metode pembayaran, dan top driver ke CSV">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE896;" Style="{StaticResource Icon}" FontSize="13" Margin="0,0,8,0" />
+                        <TextBlock Text="Ekspor CSV" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <ItemsControl ItemsSource="{Binding Cards}" Focusable="False">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <c:StatCard Title="{Binding Title}" Value="{Binding Value}" Caption="{Binding Caption}" Kind="{Binding Kind}" Margin="0,0,14,14" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Card}" Margin="0,0,14,14">
+                    <StackPanel>
+                        <TextBlock Text="Tren pendapatan bulanan (Rp)" Style="{StaticResource Text.SectionTitle}" />
+                        <TextBlock Text="12 bulan terakhir, berdasarkan tanggal pemesanan" Style="{StaticResource Text.Caption}" Margin="0,3,0,14" />
+                        <c:ColumnChart Points="{Binding MonthlyTrend}" Height="260" EmptyText="Belum ada pendapatan dalam 12 bulan terakhir." />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource Card}" Margin="0,0,14,14">
+                    <StackPanel>
+                        <TextBlock Text="Per metode pembayaran" Style="{StaticResource Text.SectionTitle}" />
+                        <TextBlock Text="Bagian dari total pendapatan" Style="{StaticResource Text.Caption}" Margin="0,3,0,16" />
+                        <ItemsControl ItemsSource="{Binding PaymentBreakdown}" Focusable="False">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,16">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding Name}" Style="{StaticResource Text.Base}" FontWeight="SemiBold" />
+                                        <TextBlock Grid.Column="1" Text="{Binding RevenueText}" Style="{StaticResource Text.Base}" FontWeight="SemiBold" />
+                                        <ProgressBar Grid.Row="1" Grid.ColumnSpan="2" Minimum="0" Maximum="1" Value="{Binding ShareRatio, Mode=OneWay}"
+                                                     Height="8" MinHeight="8" Margin="0,7,0,5" Foreground="{DynamicResource Chart.Bar}"
+                                                     Background="{DynamicResource Chart.Track}" BorderThickness="0" IsTabStop="False"
+                                                     AutomationProperties.Name="{Binding Name}" />
+                                        <TextBlock Grid.Row="2" Text="{Binding CountText}" Style="{StaticResource Text.Caption}" />
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ShareText}" Style="{StaticResource Text.Caption}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Card}" Margin="0,0,14,14">
+                    <StackPanel>
+                        <TextBlock Text="Top driver" Style="{StaticResource Text.SectionTitle}" />
+                        <TextBlock Text="Pendapatan terbesar dari pemesanan lunas" Style="{StaticResource Text.Caption}" Margin="0,3,0,10" />
+                        <ItemsControl ItemsSource="{Binding TopDrivers}" Focusable="False">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Width="28" Height="28" CornerRadius="14" Background="{DynamicResource Border.Default}">
+                                            <TextBlock Text="{Binding Rank}" FontSize="12" FontWeight="Bold" FontFamily="{StaticResource Font.Text}"
+                                                       Foreground="{DynamicResource Text.Secondary}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <StackPanel Grid.Column="1" Margin="12,0">
+                                            <TextBlock Text="{Binding Username}" Style="{StaticResource Text.Base}" FontWeight="Medium" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding TripsText}" Style="{StaticResource Text.Caption}" />
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="2" Text="{Binding EarnedText}" Style="{StaticResource Text.Base}" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource Soft.Success.Fg}" VerticalAlignment="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <TextBlock Text="Belum ada driver dengan pemesanan lunas." Style="{StaticResource Text.Caption}" Margin="0,16" HorizontalAlignment="Center">
+                            <TextBlock.Visibility>
+                                <Binding Path="HasTopDrivers" Converter="{StaticResource Collapsed}" />
+                            </TextBlock.Visibility>
+                        </TextBlock>
+                        <TextBlock Text="{Binding TopDriversError}" Style="{StaticResource Text.Error}"
+                                   Visibility="{Binding TopDriversError, Converter={StaticResource Visible}}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource Card}" Margin="0,0,14,14" Padding="0">
+                    <StackPanel>
+                        <StackPanel Margin="20,18,20,6">
+                            <TextBlock Text="Pemesanan lunas terbaru" Style="{StaticResource Text.SectionTitle}" />
+                            <TextBlock Text="10 transaksi terakhir" Style="{StaticResource Text.Caption}" Margin="0,3,0,0" />
+                        </StackPanel>
+                        <DataGrid ItemsSource="{Binding RecentPaid}" AutoGenerateColumns="False" IsReadOnly="True"
+                                  HeadersVisibility="Column" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="{DynamicResource Border.Default}"
+                                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"
+                                  RowHeight="40" ColumnHeaderHeight="36" BorderThickness="0" Margin="6,0,6,8"
+                                  Background="Transparent" RowBackground="Transparent" AutomationProperties.Name="Pemesanan lunas terbaru">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding ShortId}" Width="96" MinWidth="96" ElementStyle="{StaticResource Cell.Text}" />
+                                <DataGridTextColumn Header="Dipesan" Binding="{Binding CreatedText}" Width="*" MinWidth="150" ElementStyle="{StaticResource Cell.Text}" />
+                                <DataGridTextColumn Header="Metode" Binding="{Binding MethodText}" Width="100" MinWidth="100" ElementStyle="{StaticResource Cell.Text}" />
+                                <DataGridTextColumn Header="Jumlah" Binding="{Binding PriceText}" Width="110" MinWidth="110" ElementStyle="{StaticResource Cell.Number}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <TextBlock Text="Belum ada pemesanan lunas." Style="{StaticResource Text.Caption}" Margin="0,20" HorizontalAlignment="Center"
+                                   Visibility="{Binding HasRecentPaid, Converter={StaticResource Collapsed}}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,19 @@
+<UserControl x:Class="RITSU_Desk.Views.Student.MyBookingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:RITSU_Desk.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <c:BookingFilterBar Placeholder="Cari lokasi atau nama...">
+            <c:BookingFilterBar.Extra>
+                <ComboBox Width="180" ItemsSource="{Binding Side.Options}" SelectedItem="{Binding Side.Selected}" DisplayMemberPath="Label"
+                          AutomationProperties.Name="Tampilkan perjalanan sebagai"
+                          Visibility="{Binding Side.IsAvailable, Converter={StaticResource Visible}}" />
+            </c:BookingFilterBar.Extra>
+        </c:BookingFilterBar>
+        <c:BookingTable Grid.Row="1" Margin="0,6,0,0" />
+    </Grid>
+</UserControl>

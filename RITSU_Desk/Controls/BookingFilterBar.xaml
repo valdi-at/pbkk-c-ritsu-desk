@@ -1,0 +1,39 @@
+<UserControl x:Class="RITSU_Desk.Controls.BookingFilterBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <WrapPanel x:Name="Panel" Orientation="Horizontal">
+        <Grid Width="260" Margin="0,0,10,10">
+            <TextBox x:Name="Search" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"
+                     Padding="34,0,10,0" VerticalContentAlignment="Center" MinHeight="34"
+                     AutomationProperties.Name="Cari perjalanan">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding SearchCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <TextBlock Text="&#xE721;" Style="{StaticResource Icon}" HorizontalAlignment="Left" Margin="12,0,0,0" FontSize="13"
+                       Foreground="{DynamicResource Text.Muted}" IsHitTestVisible="False" />
+            <TextBlock Text="{Binding Placeholder, RelativeSource={RelativeSource AncestorType=UserControl}}" Style="{StaticResource Placeholder}" Margin="35,0,0,0"
+                       Visibility="{Binding Text, ElementName=Search, Converter={StaticResource Collapsed}}" />
+        </Grid>
+        <ComboBox ItemsSource="{Binding StageOptions}" SelectedItem="{Binding SelectedStage}" DisplayMemberPath="Label"
+                  Width="200" Margin="0,0,10,10" AutomationProperties.Name="Filter stage" />
+        <ComboBox ItemsSource="{Binding PaidOptions}" SelectedItem="{Binding SelectedPaid}" DisplayMemberPath="Label"
+                  Width="170" Margin="0,0,10,10" AutomationProperties.Name="Filter status bayar" />
+        <ComboBox ItemsSource="{Binding PeriodOptions}" SelectedItem="{Binding SelectedPeriod}" DisplayMemberPath="Label"
+                  Width="160" Margin="0,0,10,10" AutomationProperties.Name="Filter periode" />
+        <StackPanel Orientation="Horizontal" Margin="0,0,10,10"
+                    Visibility="{Binding IsCustomPeriod, Converter={StaticResource Visible}}">
+            <DatePicker SelectedDate="{Binding CustomFrom}" Width="140" AutomationProperties.Name="Dari tanggal" ToolTip="Dari tanggal" />
+            <TextBlock Text="–" Style="{StaticResource Text.Sub}" VerticalAlignment="Center" Margin="6,0" />
+            <DatePicker SelectedDate="{Binding CustomTo}" Width="140" AutomationProperties.Name="Sampai tanggal" ToolTip="Sampai tanggal" />
+        </StackPanel>
+        <ContentPresenter Content="{Binding Extra, RelativeSource={RelativeSource AncestorType=UserControl}}" Margin="0,0,10,10" />
+        <Button Style="{StaticResource Button.Ghost}" Command="{Binding ClearFiltersCommand}" Margin="0,0,0,10" MinHeight="34"
+                Visibility="{Binding HasActiveFilters, Converter={StaticResource Visible}}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="&#xE894;" Style="{StaticResource Icon}" FontSize="12" Margin="0,0,6,0" />
+                <TextBlock Text="Hapus filter" />
+            </StackPanel>
+        </Button>
+    </WrapPanel>
+</UserControl>

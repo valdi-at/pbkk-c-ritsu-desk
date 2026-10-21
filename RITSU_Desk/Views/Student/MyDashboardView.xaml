@@ -1,0 +1,89 @@
+<UserControl x:Class="RITSU_Desk.Views.Student.MyDashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:RITSU_Desk.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Focusable="False">
+        <StackPanel>
+            <Grid Margin="0,0,0,16">
+                <TextBlock Text="{Binding Greeting}" Style="{StaticResource Text.SectionTitle}" FontSize="16" VerticalAlignment="Center" />
+                <ComboBox HorizontalAlignment="Right" Width="190" ItemsSource="{Binding Side.Options}" SelectedItem="{Binding Side.Selected}"
+                          DisplayMemberPath="Label" AutomationProperties.Name="Tampilkan data sebagai"
+                          Visibility="{Binding Side.IsAvailable, Converter={StaticResource Visible}}" />
+            </Grid>
+
+            <ItemsControl ItemsSource="{Binding Cards}" Focusable="False">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <c:StatCard Title="{Binding Title}" Value="{Binding Value}" Caption="{Binding Caption}" Kind="{Binding Kind}" Margin="0,0,14,14" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Grid Margin="0,2,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource Card}" Margin="0,0,14,14">
+                    <StackPanel>
+                        <TextBlock Text="{Binding ChartTitle}" Style="{StaticResource Text.SectionTitle}" />
+                        <TextBlock Text="12 bulan terakhir, berdasarkan tanggal pemesanan" Style="{StaticResource Text.Caption}" Margin="0,3,0,14" />
+                        <c:ColumnChart Points="{Binding Monthly}" Height="240" EmptyText="Belum ada perjalanan dalam 12 bulan terakhir." />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource Card}" Margin="0,0,14,14">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Margin="0,0,0,10">
+                            <TextBlock Text="{Binding RecentTitle}" Style="{StaticResource Text.SectionTitle}" VerticalAlignment="Center" />
+                            <Button Style="{StaticResource Button.Link}" Content="Lihat semua" HorizontalAlignment="Right"
+                                    Command="{Binding OpenHistoryCommand}" />
+                        </Grid>
+                        <ItemsControl Grid.Row="1" ItemsSource="{Binding RecentTrips}" Focusable="False">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{DynamicResource Border.Default}" BorderThickness="0,0,0,1" Padding="0,10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border Width="36" Height="36" CornerRadius="10" Background="{DynamicResource Accent.Soft}" VerticalAlignment="Top">
+                                                <TextBlock Text="&#xE804;" Style="{StaticResource Icon}" FontSize="15" Foreground="{DynamicResource Accent.Primary}" />
+                                            </Border>
+                                            <StackPanel Grid.Column="1" Margin="12,0,10,0">
+                                                <TextBlock Style="{StaticResource Text.Base}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis">
+                                                    <Run Text="{Binding PickupText, Mode=OneWay}" /><Run Text=" → " Foreground="{DynamicResource Text.Muted}" /><Run Text="{Binding DestinationText, Mode=OneWay}" />
+                                                </TextBlock>
+                                                <TextBlock Style="{StaticResource Text.Caption}" Margin="0,3,0,0" TextTrimming="CharacterEllipsis">
+                                                    <Run Text="{Binding CreatedText, Mode=OneWay}" /><Run Text=" · " /><Run Text="{Binding PriceText, Mode=OneWay}" />
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <c:StatusBadge Grid.Column="2" Text="{Binding StageLabel}" Kind="{Binding StageKind}" VerticalAlignment="Top" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,40"
+                                    Visibility="{Binding HasRecentTrips, Converter={StaticResource Collapsed}}">
+                            <TextBlock Text="&#xE804;" Style="{StaticResource Icon}" FontSize="28" Foreground="{DynamicResource Text.Muted}" />
+                            <TextBlock Text="Belum ada perjalanan." Style="{StaticResource Text.Caption}" Margin="0,8,0,0" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

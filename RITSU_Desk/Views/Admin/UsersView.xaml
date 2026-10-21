@@ -1,0 +1,214 @@
+<UserControl x:Class="RITSU_Desk.Views.Admin.UsersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:RITSU_Desk.Controls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <WrapPanel Margin="0,0,0,6">
+            <Grid Width="300" Margin="0,0,10,10">
+                <TextBox x:Name="Search" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"
+                         Padding="34,0,10,0" VerticalContentAlignment="Center" MinHeight="34" AutomationProperties.Name="Cari pengguna">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding SearchCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <TextBlock Text="&#xE721;" Style="{StaticResource Icon}" HorizontalAlignment="Left" Margin="12,0,0,0" FontSize="13"
+                           Foreground="{DynamicResource Text.Muted}" IsHitTestVisible="False" />
+                <TextBlock Text="Cari username atau email..." Style="{StaticResource Placeholder}" Margin="35,0,0,0"
+                           Visibility="{Binding Text, ElementName=Search, Converter={StaticResource Collapsed}}" />
+            </Grid>
+            <ComboBox ItemsSource="{Binding RoleOptions}" SelectedItem="{Binding SelectedRole}" DisplayMemberPath="Label"
+                      Width="170" Margin="0,0,10,10" AutomationProperties.Name="Filter role" />
+        </WrapPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="420" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Border Style="{StaticResource Card}" Padding="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                              AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single" SelectionUnit="FullRow"
+                              HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                              HorizontalGridLinesBrush="{DynamicResource Border.Default}"
+                              CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                              CanUserResizeRows="False" CanUserSortColumns="False"
+                              RowHeight="52" ColumnHeaderHeight="40" BorderThickness="0" Margin="6,6,6,0"
+                              Background="Transparent" RowBackground="Transparent"
+                              AutomationProperties.Name="Daftar pengguna">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Pengguna" Width="*" MinWidth="180">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="10,0" VerticalAlignment="Center">
+                                            <Border Width="32" Height="32" CornerRadius="16" Background="{DynamicResource Accent.Soft}">
+                                                <TextBlock Text="{Binding Initial}" FontWeight="SemiBold" FontFamily="{StaticResource Font.Text}"
+                                                           Foreground="{DynamicResource Accent.Primary}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                            <TextBlock Text="{Binding DisplayName}" Margin="10,0,0,0" VerticalAlignment="Center" FontWeight="SemiBold"
+                                                       TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" MinWidth="180" ElementStyle="{StaticResource Cell.Text}" />
+                            <DataGridTemplateColumn Header="Role" Width="120" MinWidth="120">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <c:StatusBadge Text="{Binding RoleLabel}" Kind="{Binding RoleKind}" Margin="10,0" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Bergabung" Binding="{Binding JoinedText}" Width="130" MinWidth="130" ElementStyle="{StaticResource Cell.Text}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="24,60"
+                                Visibility="{Binding IsEmpty, Converter={StaticResource Visible}}">
+                        <TextBlock Text="&#xE716;" Style="{StaticResource Icon}" FontSize="34" Foreground="{DynamicResource Text.Muted}" />
+                        <TextBlock Text="{Binding EmptyText}" Style="{StaticResource Text.Sub}" Margin="0,12,0,0" HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                    <c:PagerBar Grid.Row="1" DataContext="{Binding Pager}" Margin="16,0,12,12" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource Card}" Width="{StaticResource Detail.Width}" Margin="16,0,0,0" Padding="0"
+                    Visibility="{Binding IsDetailOpen, Converter={StaticResource Visible}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Margin="20,16,12,8">
+                        <TextBlock Text="Detail pengguna" Style="{StaticResource Text.SectionTitle}" VerticalAlignment="Center" />
+                        <Button Style="{StaticResource Button.Icon}" Content="&#xE711;" HorizontalAlignment="Right"
+                                Command="{Binding CloseDetailCommand}" ToolTip="Tutup detail" AutomationProperties.Name="Tutup detail" />
+                    </Grid>
+                    <ProgressBar Grid.Row="1" IsIndeterminate="True" Height="2" MinHeight="2" Margin="20,0"
+                                 Visibility="{Binding IsDetailLoading, Converter={StaticResource Visible}}" />
+
+                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" Padding="20,8,20,12">
+                        <StackPanel>
+                            <TextBlock Text="{Binding DetailError}" Style="{StaticResource Text.Error}"
+                                       Visibility="{Binding DetailError, Converter={StaticResource Visible}}" />
+
+                            <StackPanel DataContext="{Binding SelectedItem}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Width="52" Height="52" CornerRadius="26" Background="{DynamicResource Accent.Soft}">
+                                        <TextBlock Text="{Binding Initial}" FontSize="20" FontWeight="SemiBold" FontFamily="{StaticResource Font.Display}"
+                                                   Foreground="{DynamicResource Accent.Primary}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding DisplayName}" Style="{StaticResource Text.SectionTitle}" TextTrimming="CharacterEllipsis" MaxWidth="250" />
+                                        <c:StatusBadge Text="{Binding RoleLabel}" Kind="{Binding RoleKind}" Margin="0,5,0,0" />
+                                    </StackPanel>
+                                </StackPanel>
+                                <TextBlock Text="Email" Style="{StaticResource Text.Caption}" Margin="0,18,0,0" />
+                                <TextBlock Text="{Binding Email}" Style="{StaticResource Text.Value}" Margin="0,3,0,0" />
+                                <Grid Margin="0,14,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="Bergabung" Style="{StaticResource Text.Caption}" />
+                                        <TextBlock Text="{Binding JoinedText}" Style="{StaticResource Text.Value}" Margin="0,3,0,0" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Diperbarui" Style="{StaticResource Text.Caption}" />
+                                        <TextBlock Text="{Binding UpdatedText}" Style="{StaticResource Text.Value}" Margin="0,3,0,0" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+
+                            <StackPanel DataContext="{Binding Detail}" Visibility="{Binding Converter={StaticResource Visible}}">
+                                <TextBlock Text="RELASI DATA" Style="{StaticResource Text.Overline}" Margin="0,20,0,8" />
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Style="{StaticResource Panel.Subtle}" Margin="0,0,6,0" Padding="10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding BookingsAsCustomerText}" Style="{StaticResource Text.SectionTitle}" FontSize="18" />
+                                            <TextBlock Text="Pesanan" Style="{StaticResource Text.Caption}" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="1" Style="{StaticResource Panel.Subtle}" Margin="3,0" Padding="10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding BookingsAsDriverText}" Style="{StaticResource Text.SectionTitle}" FontSize="18" />
+                                            <TextBlock Text="Antaran" Style="{StaticResource Text.Caption}" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="2" Style="{StaticResource Panel.Subtle}" Margin="6,0,0,0" Padding="10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding ChatMessagesText}" Style="{StaticResource Text.SectionTitle}" FontSize="18" />
+                                            <TextBlock Text="Chat" Style="{StaticResource Text.Caption}" />
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                                <TextBlock Text="{Binding DependencyHint}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0"
+                                           Visibility="{Binding HasDependencies, Converter={StaticResource Visible}}" />
+
+                                <TextBlock Text="PENGAJUAN DRIVER TERAKHIR" Style="{StaticResource Text.Overline}" Margin="0,20,0,8" />
+                                <Border Style="{StaticResource Panel.Subtle}" Visibility="{Binding HasApplication, Converter={StaticResource Visible}}">
+                                    <StackPanel DataContext="{Binding LatestApplication}">
+                                        <c:StatusBadge Text="{Binding StatusLabel}" Kind="{Binding StatusKind}" />
+                                        <TextBlock Style="{StaticResource Text.Caption}" Margin="0,8,0,0">
+                                            <Run Text="Diajukan " /><Run Text="{Binding SubmittedText, Mode=OneWay}" />
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding AdminMessage}" Style="{StaticResource Text.Body}" FontSize="12.5" Margin="0,6,0,0"
+                                                   Visibility="{Binding AdminMessage, Converter={StaticResource Visible}}" />
+                                    </StackPanel>
+                                </Border>
+                                <TextBlock Text="Belum pernah mengajukan diri sebagai driver." Style="{StaticResource Text.Caption}"
+                                           Visibility="{Binding HasApplication, Converter={StaticResource Collapsed}}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Border Grid.Row="3" BorderBrush="{DynamicResource Border.Default}" BorderThickness="0,1,0,0" Padding="20,14">
+                        <StackPanel>
+                            <TextBlock Text="Anda tidak bisa mengubah role atau menghapus akun sendiri." Style="{StaticResource Text.Caption}"
+                                       TextWrapping="Wrap" Margin="0,0,0,10"
+                                       Visibility="{Binding IsSelfSelected, Converter={StaticResource Visible}}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Style="{StaticResource Button.Secondary}" Command="{Binding ChangeRoleCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE70F;" Style="{StaticResource Icon}" FontSize="13" Margin="0,0,8,0" />
+                                        <TextBlock Text="Ubah role" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Grid.Column="2" Style="{StaticResource Button.DangerOutline}" Command="{Binding DeleteCommand}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE74D;" Style="{StaticResource Icon}" FontSize="13" Margin="0,0,8,0" />
+                                        <TextBlock Text="Hapus" />
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

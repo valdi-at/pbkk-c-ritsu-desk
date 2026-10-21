@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="RITSU_Desk.Tests/RITSU_Desk.Tests.csproj" />
   <Project Path="RITSU_Desk/RITSU_Desk.csproj" />
 </Solution>

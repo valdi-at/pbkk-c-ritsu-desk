@@ -1,0 +1,134 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="App.Background" Color="#091111" />
+    <SolidColorBrush x:Key="Surface.Background" Color="#131D1D" />
+    <SolidColorBrush x:Key="Surface.Subtle" Color="#192425" />
+    <SolidColorBrush x:Key="Surface.Hover" Color="#1E2C2C" />
+    <SolidColorBrush x:Key="Surface.Selected" Color="#0F4242" />
+    <SolidColorBrush x:Key="Border.Default" Color="#243434" />
+    <SolidColorBrush x:Key="Card.Border" Color="#1E2C2C" />
+    <SolidColorBrush x:Key="Border.Strong" Color="#354647" />
+
+    <SolidColorBrush x:Key="Text.Primary" Color="#E1EAEA" />
+    <SolidColorBrush x:Key="Text.Secondary" Color="#A7B4B5" />
+    <SolidColorBrush x:Key="Text.Muted" Color="#828F90" />
+    <SolidColorBrush x:Key="Text.OnAccent" Color="#000809" />
+    <SolidColorBrush x:Key="Text.Link" Color="#00D2D3" />
+
+    <SolidColorBrush x:Key="Accent.Primary" Color="#00C5C7" />
+    <SolidColorBrush x:Key="Accent.PrimaryHover" Color="#00D2D3" />
+    <SolidColorBrush x:Key="Accent.PrimaryPressed" Color="#00B2B3" />
+    <SolidColorBrush x:Key="Accent.Soft" Color="#103838" />
+    <SolidColorBrush x:Key="Accent.Text" Color="#00D2D3" />
+    <SolidColorBrush x:Key="Brand.Secondary" Color="#FFDC75" />
+    <SolidColorBrush x:Key="Brand.SecondaryText" Color="#382500" />
+    <SolidColorBrush x:Key="Danger.Primary" Color="#EC305A" />
+    <SolidColorBrush x:Key="Danger.Hover" Color="#F04B6E" />
+    <SolidColorBrush x:Key="Danger.Pressed" Color="#D6224E" />
+    <SolidColorBrush x:Key="Danger.OnSolid" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="Secondary.Background" Color="#192425" />
+    <SolidColorBrush x:Key="Secondary.Hover" Color="#1E2C2C" />
+    <SolidColorBrush x:Key="Secondary.Pressed" Color="#243434" />
+    <SolidColorBrush x:Key="Focus.Ring" Color="#00D2D3" />
+
+    <SolidColorBrush x:Key="Sidebar.Background" Color="#131D1D" />
+    <SolidColorBrush x:Key="Sidebar.Border" Color="#243434" />
+    <SolidColorBrush x:Key="Sidebar.Text" Color="#A7B4B5" />
+    <SolidColorBrush x:Key="Sidebar.TextHover" Color="#E1EAEA" />
+    <SolidColorBrush x:Key="Sidebar.TextActive" Color="#000809" />
+    <SolidColorBrush x:Key="Sidebar.Section" Color="#6E7B7C" />
+    <SolidColorBrush x:Key="Sidebar.ItemHover" Color="#1E2C2C" />
+    <SolidColorBrush x:Key="Sidebar.ItemActive" Color="#00C5C7" />
+    <SolidColorBrush x:Key="Sidebar.Card" Color="#192425" />
+
+    <SolidColorBrush x:Key="Logo.Background" Color="#00C5C7" />
+    <SolidColorBrush x:Key="Logo.Foreground" Color="#FFFFFF" />
+
+    <SolidColorBrush x:Key="Badge.Neutral.Bg" Color="#2A3A3B" />
+    <SolidColorBrush x:Key="Badge.Neutral.Fg" Color="#E1EAEA" />
+    <SolidColorBrush x:Key="Badge.Primary.Bg" Color="#00C5C7" />
+    <SolidColorBrush x:Key="Badge.Primary.Fg" Color="#000809" />
+    <SolidColorBrush x:Key="Badge.Info.Bg" Color="#00ACF3" />
+    <SolidColorBrush x:Key="Badge.Info.Fg" Color="#00070F" />
+    <SolidColorBrush x:Key="Badge.Success.Bg" Color="#00BF76" />
+    <SolidColorBrush x:Key="Badge.Success.Fg" Color="#000903" />
+    <SolidColorBrush x:Key="Badge.Warning.Bg" Color="#FDB500" />
+    <SolidColorBrush x:Key="Badge.Warning.Fg" Color="#291600" />
+    <SolidColorBrush x:Key="Badge.Danger.Bg" Color="#EC305A" />
+    <SolidColorBrush x:Key="Badge.Danger.Fg" Color="#FFFFFF" />
+
+    <SolidColorBrush x:Key="Soft.Neutral.Bg" Color="#192425" />
+    <SolidColorBrush x:Key="Soft.Neutral.Fg" Color="#E1EAEA" />
+    <SolidColorBrush x:Key="Soft.Primary.Bg" Color="#103838" />
+    <SolidColorBrush x:Key="Soft.Primary.Fg" Color="#00D2D3" />
+    <SolidColorBrush x:Key="Soft.Info.Bg" Color="#10343F" />
+    <SolidColorBrush x:Key="Soft.Info.Fg" Color="#4EBDF7" />
+    <SolidColorBrush x:Key="Soft.Success.Bg" Color="#10372B" />
+    <SolidColorBrush x:Key="Soft.Success.Fg" Color="#41CE90" />
+    <SolidColorBrush x:Key="Soft.Warning.Bg" Color="#383518" />
+    <SolidColorBrush x:Key="Soft.Warning.Fg" Color="#FDBE45" />
+    <SolidColorBrush x:Key="Soft.Danger.Bg" Color="#362027" />
+    <SolidColorBrush x:Key="Soft.Danger.Fg" Color="#FC7182" />
+
+    <SolidColorBrush x:Key="Chart.Bar" Color="#00C5C7" />
+    <SolidColorBrush x:Key="Chart.BarHover" Color="#00D2D3" />
+    <SolidColorBrush x:Key="Chart.Track" Color="#243434" />
+    <SolidColorBrush x:Key="Chart.Grid" Color="#1E2C2C" />
+
+    <SolidColorBrush x:Key="Overlay.Backdrop" Color="#99030707" />
+    <SolidColorBrush x:Key="Toast.Background" Color="#192425" />
+
+    <LinearGradientBrush x:Key="Login.Background" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Offset="0" Color="#0D2223" />
+        <GradientStop Offset="0.5" Color="#091111" />
+        <GradientStop Offset="1" Color="#1C1A0E" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Login.BlobPrimary" Color="#3300C5C7" />
+    <SolidColorBrush x:Key="Login.BlobSecondary" Color="#26FFDC75" />
+
+    <SolidColorBrush x:Key="DataGridRowSelectedBackgroundThemeBrush" Color="#0F4242" />
+    <SolidColorBrush x:Key="DataGridRowSelectedForegroundThemeBrush" Color="#FFFFFF" />
+
+    <Color x:Key="SystemAccentColor">#00C5C7</Color>
+    <Color x:Key="SystemAccentColorLight1">#00D2D3</Color>
+    <Color x:Key="SystemAccentColorLight2">#5CDFE0</Color>
+    <Color x:Key="SystemAccentColorLight3">#A6EEEE</Color>
+    <Color x:Key="SystemAccentColorDark1">#00B2B3</Color>
+    <Color x:Key="SystemAccentColorDark2">#00A0A2</Color>
+    <Color x:Key="SystemAccentColorDark3">#007C7C</Color>
+    <SolidColorBrush x:Key="AccentFillColorDefaultBrush" Color="#00C5C7" />
+    <SolidColorBrush x:Key="AccentFillColorSecondaryBrush" Color="#E600C5C7" />
+    <SolidColorBrush x:Key="AccentFillColorTertiaryBrush" Color="#CC00C5C7" />
+    <SolidColorBrush x:Key="AccentFillColorSelectedTextBackgroundBrush" Color="#007C7C" />
+    <SolidColorBrush x:Key="AccentTextFillColorPrimaryBrush" Color="#5CDFE0" />
+    <SolidColorBrush x:Key="AccentTextFillColorSecondaryBrush" Color="#A6EEEE" />
+    <SolidColorBrush x:Key="AccentTextFillColorTertiaryBrush" Color="#00D2D3" />
+    <SolidColorBrush x:Key="TextOnAccentFillColorPrimaryBrush" Color="#000809" />
+    <SolidColorBrush x:Key="TextOnAccentFillColorSecondaryBrush" Color="#B3000809" />
+    <SolidColorBrush x:Key="TextOnAccentFillColorSelectedTextBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="AccentButtonBackground" Color="#00C5C7" />
+    <SolidColorBrush x:Key="AccentButtonBackgroundPointerOver" Color="#00D2D3" />
+    <SolidColorBrush x:Key="AccentButtonBackgroundPressed" Color="#00B2B3" />
+    <SolidColorBrush x:Key="AccentButtonForeground" Color="#000809" />
+    <SolidColorBrush x:Key="AccentButtonForegroundPointerOver" Color="#000809" />
+    <SolidColorBrush x:Key="AccentButtonForegroundPressed" Color="#B3000809" />
+
+    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#00C5C7" />
+    <SolidColorBrush x:Key="TextControlElevationBorderFocusedBrush" Color="#00C5C7" />
+    <SolidColorBrush x:Key="TextControlFocusedBorderBrush" Color="#00C5C7" />
+    <Thickness x:Key="TextControlBorderThemeThicknessFocused">1.5</Thickness>
+    <SolidColorBrush x:Key="ComboBoxBorderBrushFocused" Color="#00C5C7" />
+    <SolidColorBrush x:Key="DatePickerBorderBrushFocused" Color="#00C5C7" />
+    <SolidColorBrush x:Key="DatePickerFocusedBorderBrush" Color="#00C5C7" />
+    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedFill" Color="#00C5C7" />
+    <SolidColorBrush x:Key="RadioButtonCheckOuterEllipseCheckedFillPointerOver" Color="#00B2B3" />
+    <SolidColorBrush x:Key="RadioButtonCheckOuterEllipseCheckedFillPressed" Color="#00A0A2" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillChecked" Color="#00C5C7" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillCheckedPointerOver" Color="#00B2B3" />
+    <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillCheckedPressed" Color="#00A0A2" />
+
+    <CornerRadius x:Key="ControlCornerRadius">10</CornerRadius>
+    <CornerRadius x:Key="OverlayCornerRadius">14</CornerRadius>
+    <CornerRadius x:Key="PopupCornerRadius">14</CornerRadius>
+</ResourceDictionary>
