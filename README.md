@@ -49,3 +49,5 @@ RITSU Desk adalah aplikasi desktop WPF (C#, .NET 10) untuk melihat dan mengelola
 
 > [!NOTE]
 > 3. Buat Poster Infografis aplikasi yang telah dibuat dalam 1 halaman.
+
+![Poster Infografis RITSU Desk](./Poster%20Infografis%20RITSU%20Desk.png)
